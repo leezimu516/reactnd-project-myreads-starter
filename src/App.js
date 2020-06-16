@@ -19,32 +19,42 @@ class BooksApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
+            searchItem: '',
             showSearchPage: false,
             searchBookList: []
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.keyPress = this.keyPress.bind(this);
+        this.onInput = this.onInput.bind(this);
+        this.updateInputValue = this.updateInputValue.bind(this);
     }
 
 
-    handleChange(e) {
-        this.setState({value: e.target.value});
+    onInput(e) {
+        let duration = 1000;
+        let searchValue = e.target.value
+        clearTimeout(this.inputTimer);
+        this.inputTimer = setTimeout(() => {
+            console.log("ddd", searchValue)
+            this.updateInputValue(searchValue);
+        }, duration)
     }
 
-    keyPress(e) {
-        if (e.keyCode === 13) {
-            console.log('value', e.target.value, this.state.searchBookList);
-            // put the login here
-            // this.setState({searchBookList: BooksAPI.search(e.target.value)})
-            BooksAPI.search(e.target.value).then(
+    updateInputValue(value) {
+
+        this.setState({
+            searchItem: value
+        });
+        if (this.state.searchItem) {
+            BooksAPI.search(this.state.searchItem).then(
                 data => {
                     this.setState({searchBookList: data})
                     console.log(1111, data)
                 }
             )
+        } else {
+            this.setState({searchBookList: []})
         }
+
     }
 
     render() {
@@ -66,18 +76,20 @@ class BooksApp extends React.Component {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
                                 <input id="searchBar" type="text" placeholder="Search by title or author"
-                                       onKeyDown={this.keyPress}
-                                       onChange={this.handleChange}
+                                       onChange={this.onInput}
                                 />
 
                             </div>
                         </div>
 
                         <div className="search-books-results">
-                                {console.log(2222,this.state.searchBookList)}
 
-                                {this.state.searchBookList.length > 0 && <Books books={this.state.searchBookList}/>}
-                                {console.log(333,this.state.searchBookList)}
+                            {
+                                this.state.searchBookList &&
+                                this.state.searchBookList.length > 0 &&
+                                <Books books={this.state.searchBookList}/>
+                            }
+                            {console.log(333, this.state.searchBookList)}
 
                         </div>
                     </div>
