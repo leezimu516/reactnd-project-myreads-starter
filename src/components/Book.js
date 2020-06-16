@@ -10,7 +10,7 @@ class Book extends React.Component {
                     <div className="book-cover" style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: 'url(`{this.props.book.image}`)'
+                        backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})`
                     }}></div>
                     <div className="book-shelf-changer">
                         <select>
@@ -23,7 +23,7 @@ class Book extends React.Component {
                     </div>
                 </div>
                 <div className="book-title">{this.props.book.title}</div>
-                <div className="book-authors">{this.props.book.author}</div>
+                <div className="book-authors">{this.props.book.authors}</div>
             </div>
         )
     }
