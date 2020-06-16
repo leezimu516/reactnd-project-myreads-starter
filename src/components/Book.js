@@ -4,14 +4,25 @@ class Book extends React.Component {
 
 
     render() {
-        return (
-            <div className="book">
-                <div className="book-top">
-                    <div className="book-cover" style={{
+        let bookThumbnail;
+        if(this.props.book.imageLinks && this.props.book.imageLinks.smallThumbnail) {
+            bookThumbnail = <div className="book-cover" style={{
                         width: 128,
                         height: 193,
                         backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})`
-                    }}></div>
+                    }}></div>;
+        } else {
+            bookThumbnail = <div className="book-cover" style={{
+                        width: 128,
+                        height: 193,
+                        backgroundImage: ''
+                    }}></div>;
+        }
+        return (
+            <div className="book">
+                <div className="book-top">
+                    {bookThumbnail}
+
                     <div className="book-shelf-changer">
                         <select>
                             <option value="move" disabled>Move to...</option>
