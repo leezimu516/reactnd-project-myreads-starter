@@ -32,6 +32,7 @@ class BooksApp extends React.Component {
 
         this.onInput = this.onInput.bind(this);
         this.updateInputValue = this.updateInputValue.bind(this);
+        this.updateSearchBookShelf = this.updateSearchBookShelf.bind(this);
         // this.refreshBooks = this.refreshBooks.bind(this);
     }
 
@@ -54,13 +55,32 @@ class BooksApp extends React.Component {
         if (this.state.searchItem) {
             BooksAPI.search(this.state.searchItem).then(
                 data => {
-                    this.setState({searchBookList: data})
                     console.log("search book", data)
+                    this.updateSearchBookShelf(data)
                 }
             )
         } else {
             this.setState({searchBookList: []})
         }
+
+    }
+
+    updateSearchBookShelf(books) {
+        let updatedSearchBookShelf = []
+        books.map((book) => {
+            BooksAPI.get(book.id).then(
+                data => {
+                    console.log(data)
+                    updatedSearchBookShelf.push(data)
+                }
+            ).then(() => {
+                    this.setState({searchBookList: updatedSearchBookShelf})
+                    // console.log("updated search book", updatedSearchBookShelf)
+                }
+            )
+        });
+
+
 
     }
 
