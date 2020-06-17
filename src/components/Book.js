@@ -23,7 +23,7 @@ class Book extends React.Component {
             <div className="book">
                 <div className="book-top">
                     {bookThumbnail}
-                    <MarkBook book={this.props.book}/>
+                    <MarkBook book={this.props.book} isSearchPage={this.props.isSearchPage}/>
                 </div>
                 <div className="book-title">{this.props.book.title}</div>
                 <div className="book-authors">{this.props.book.authors}</div>

@@ -9,7 +9,7 @@ class Books extends React.Component {
         const listItems = this.props.books.map((book) =>
 
             <li key={book.id}>
-                <Book book={book}/>
+                <Book book={book} isSearchPage={this.props.isSearchPage}/>
             </li>
         );
 

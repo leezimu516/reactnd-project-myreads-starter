@@ -4,6 +4,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from "./components/Book";
 import Books from "./components/Books";
+import * as Utils from "./components/Utils"
 
 class BooksApp extends React.Component {
     // state = {
@@ -23,14 +24,15 @@ class BooksApp extends React.Component {
             searchItem: '',
             showSearchPage: false,
             searchBookList: [],
-            wantToRead: [],
-            currentlyReading: [],
-            read: [],
+            // wantToRead: [],
+            // currentlyReading: [],
+            // read: [],
             // bookList: []
         };
 
         this.onInput = this.onInput.bind(this);
         this.updateInputValue = this.updateInputValue.bind(this);
+        // this.refreshBooks = this.refreshBooks.bind(this);
     }
 
 
@@ -53,7 +55,7 @@ class BooksApp extends React.Component {
             BooksAPI.search(this.state.searchItem).then(
                 data => {
                     this.setState({searchBookList: data})
-                    console.log(1111, data)
+                    console.log("search book", data)
                 }
             )
         } else {
@@ -63,35 +65,7 @@ class BooksApp extends React.Component {
     }
 
     componentWillMount() {
-        let current = [];
-        let want = [];
-        let read = [];
-
-        BooksAPI.getAll().then(
-            data => {
-                this.setState({bookList: data})
-                console.log(data)
-                data.map((book) => {
-
-                    if(book.shelf === "currentlyReading") {
-                        current.push(book)
-                        this.setState({currentlyReading: current})
-                    } else if(book.shelf === "wantToRead") {
-                        want.push(book)
-                        this.setState({wantToRead: want})
-
-                    } else if(book.shelf === "read") {
-                        read.push(book)
-                        this.setState({read: read})
-                    }
-                })
-
-                ReactDOM.render(<Books books={this.state.currentlyReading}/>, document.getElementById('currentlyReading'));
-                ReactDOM.render(<Books books={this.state.wantToRead}/>, document.getElementById('wantToRead'));
-                ReactDOM.render(<Books books={this.state.read}/>, document.getElementById('read'));
-
-            }
-        )
+        Utils.refreshBooks()
     }
 
     componentDidMount() {
@@ -105,7 +79,11 @@ class BooksApp extends React.Component {
                     <div className="search-books">
                         <div className="search-books-bar">
                             <button className="close-search"
-                                    onClick={() => this.setState({showSearchPage: false})}>Close
+                                    onClick={() => {
+                                        this.setState({showSearchPage: false});
+                                        Utils.refreshBooks()
+                                    }}>
+                                Close
                             </button>
                             <div className="search-books-input-wrapper">
                                 {/*
@@ -128,7 +106,7 @@ class BooksApp extends React.Component {
                             {
                                 this.state.searchBookList &&
                                 this.state.searchBookList.length > 0 &&
-                                <Books books={this.state.searchBookList}/>
+                                <Books books={this.state.searchBookList} isSearchPage={true}/>
                             }
                             {console.log(333, this.state.searchBookList)}
 
