@@ -35,12 +35,6 @@ class MarkBook extends React.Component {
 
 
     render() {
-        // let bookSelection = 'none';
-        if (this.props.book.shelf) {
-            // bookSelection = this.props.book.shelf
-            // this.setState({bookSelection: this.props.book.shelf})
-
-        }
         return (
             <div className="book-shelf-changer">
                 {console.log(this.state.bookSelection)}
