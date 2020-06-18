@@ -1,7 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import * as Utils from "./Utils";
-import Books from "./Books";
 
 class BookList extends React.Component {
 

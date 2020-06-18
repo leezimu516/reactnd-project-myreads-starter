@@ -37,8 +37,12 @@ class SearchBookList extends React.Component {
                 data => {
                     console.log("search book", data);
                     this.updateSearchBookShelf(data)
+
+
                 }
-            )
+            ).catch(() => {
+                this.setState({searchBookList: []})
+            })
         } else {
             this.setState({searchBookList: []})
         }
@@ -50,7 +54,7 @@ class SearchBookList extends React.Component {
         books.map((book) => {
             BooksAPI.get(book.id).then(
                 data => {
-                    console.log(data);
+                    // console.log(data);
                     updatedSearchBookShelf.push(data)
                 }
             ).then(() => {
@@ -88,7 +92,8 @@ class SearchBookList extends React.Component {
                         this.state.searchBookList &&
                         <Books books={this.state.searchBookList} isSearchPage={true}/>
                     }
-                    {console.log(333, this.state.searchBookList)}
+                    {/*{console.log(333, this.state.searchBookList)}*/}
+                    {/*{console.log(333, this.state.searchBookList.length)}*/}
 
                 </div>
             </div>

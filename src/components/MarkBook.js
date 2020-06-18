@@ -37,7 +37,7 @@ class MarkBook extends React.Component {
     render() {
         return (
             <div className="book-shelf-changer">
-                {console.log(this.state.bookSelection)}
+                {/*{console.log(this.state.bookSelection)}*/}
                 <select onChange={this.handleChange} value={this.state.bookSelection}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>

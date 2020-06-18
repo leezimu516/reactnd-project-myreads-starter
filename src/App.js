@@ -1,10 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Link, Route } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
+import { Route } from 'react-router-dom'
 import './App.css'
-import Book from "./components/Book";
-import Books from "./components/Books";
 import * as Utils from "./components/Utils"
 import SearchBookList from "./components/SearchBookList";
 import BookList from "./components/BookList";
@@ -21,16 +17,8 @@ class BooksApp extends React.Component {
     //
     // };
 
-    constructor(props) {
-        super(props);
-    }
-
     componentWillMount() {
         Utils.refreshBooks()
-    }
-
-    componentDidMount() {
-
     }
 
     render() {

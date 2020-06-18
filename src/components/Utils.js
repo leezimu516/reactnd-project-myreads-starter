@@ -22,7 +22,7 @@ export const refreshBooks = () => {
                     } else if(book.shelf === "read") {
                         read.push(book)
                     }
-                })
+                });
                 // this.setState({currentlyReading: current})
                 // this.setState({wantToRead: want})
                 // this.setState({read: read})
